@@ -1,0 +1,118 @@
+/* =================================================
+
+    Design and Developed by: Emir Aliev
+    Author: Emir Aliev
+    Version: 4.1
+
+=================================================== */
+
+
+/* For desktop: */
+@media only screen and (min-width: 768px) {
+    .mobile {
+        display: none;
+    }
+}
+
+/* Medium Layout: 1280px. */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .mobile {
+        display: none;
+    }
+}
+
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .mobile {
+        display: none;
+    }
+
+    .left-body {
+        display: none;
+    }
+
+    .middle-body {
+        order: 2;
+    }
+
+    .right-body {
+        order: 1;
+    }
+
+    .post-mobile-width {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
+
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) {
+    .left-body {
+        display: none;
+    }
+
+    .desktop {
+        display: none;
+    }
+
+    .tablet {
+        display: none;
+    }
+
+    .middle-body {
+        order: 3;
+    }
+
+    .right-body {
+        order: 2;
+        display: none;
+    }
+
+    .glittch a {
+        padding: 0;
+    }
+
+    .post-buttons {
+        display: inline-flex;
+        flex-wrap: inherit;
+        width: 100%;
+        height: 50px;
+    }
+
+    .post-mobile-width {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /*
+    .btn-file {
+        padding: 12px 0 0 0;
+    }*/
+
+    .post-buttons span,
+    .post-buttons button {
+        max-width: 50%;
+        height: 100%;
+    }
+
+    .navbar {
+        padding: 5px 10px;
+    }
+
+    .menu-search-container {
+        top: 17px;
+        left: 3%;
+        width: 94%;
+    }
+
+    .menu-search-close {
+        right: 15px;
+    }
+}
+
+/* Wide Mobile Layout: 480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}

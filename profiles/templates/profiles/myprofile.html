@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}
+my profile
+{% endblock title %}
+
+{% block content %}
+
+<!-- 
+    Editacni forma se nachazi v modal. Chci pouzit bootstrap 
+     Personal profile view
+-->
+<div class="container-fluid no-border">
+    <div class="backpic"></div>
+    <main>
+        <div class="row">
+            <div class="left col-lg-4">
+                <div class="photo-left">
+                    <img class="photo" src="{{profile.avatar.url}}" />
+                    <div class="active"></div>
+                </div>
+                <h4 class="name">{{profile.first_name}} {{profile.last_name}}</h4>
+                <p class="info">{{profile.bio}}</p>
+                <div class="stats flex" style="background: transparent !important;">
+                    <div class="stat col-xs-4" style="padding-right: 50px;">
+                        <p class="number-stat">3,619</p>
+                        <p class="desc-stat">Followers</p>
+                    </div>
+                    <div class="stat col-xs-4">
+                        <p class="number-stat">42</p>
+                        <p class="desc-stat">Following</p>
+                    </div>
+                    <div class="stat col-xs-4" style="padding-left: 50px;">
+                        <p class="number-stat">38</p>
+                        <p class="desc-stat">Uploads</p>
+                    </div>
+                </div>
+                <!--
+        <p class="desc">Hi ! My name is Jane Doe. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and mountains.</p>
+        -->
+            </div>
+            <div class="right col-lg-8">
+                <ul class="nav">
+                    <li>Gallery</li>
+                    <li>Collections</li>
+                    <li>Groups</li>
+                    <li>About</li>
+                </ul>
+                <span class="follow">Follow</span>
+                <div class="row gallery">
+                    {% if len_posts %}
+                    {% for post in posts %}
+                    <div class="col-md-4 segment ui fluid">
+                        {{post.content}}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <!--<h1>No posts of this user ...</h1>-->
+                    <div class="col-md-4">
+                        <img
+                            src="https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+                    </div>
+                    <div class="col-md-4">
+                        <img
+                            src="https://images.pexels.com/photos/861034/pexels-photo-861034.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+                    </div>
+                    <div class="col-md-4">
+                        <img
+                            src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+                    </div>
+                    <div class="col-md-4">
+                        <img
+                            src="https://images.pexels.com/photos/5049/forest-trees-fog-foggy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+                    </div>
+                    <div class="col-md-4">
+                        <img
+                            src="https://images.pexels.com/photos/428431/pexels-photo-428431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+                    </div>
+                    <div class="col-md-4">
+                        <img
+                            src="https://images.pexels.com/photos/50859/pexels-photo-50859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+    </main>
+
+    <!-- MODAL 
+<div class="ui modal mymodal">
+    <i class="close icon"></i>
+    <div class="header">
+        Update your Profile
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img src="{{profile.avatar.url}}">
+        </div>
+        <div class="description">
+            <div class="ui header">Provide some additional/newest info about you </div>
+            <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
+                {% csrf_token %}
+                {{form.as_p}}
+        </div>
+    </div>
+    <div class="actions">
+        <button type='submit' class="ui positive right labeled icon button">
+            Update
+            <i class="checkmark icon"></i>
+        </button>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="ui segment">
+    {% if confirm %}
+    <div class="ui green message">Your profile has been updated</div>
+    {% endif %}
+    <h3>my profile: {{request.user}}</h3>
+    <div class="ui grid">
+        <div class='row'>
+            <div class='six wide column'>
+                <img class="ui medium rounded image" src={{profile.avatar.url}}>
+                <div class="row mt-5">
+                    <button class='ui secondary button' id='modal-btn'>Update your profile</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+                </div>
+            </div>
+            <div class="ten wide column">
+                <table class="ui table">
+                    <tbody>
+                        <tr>
+                            <td>username</td>
+                            <td>{{profile.user}}</td>
+                        </tr>
+                        <tr>
+                            <td>first name</td>
+                            <td>{{profile.first_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>last name</td>
+                            <td>{{profile.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>bio</td>
+                            <td>{{profile.bio}}</td>
+                        </tr>
+                        <tr>
+                            <td>number of friends</td>
+                            <td>{{profile.get_friends_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>number of friends</td>
+                            <td>
+                                <ul>
+                                    {% for friend in profile.get_friends %}
+                                    <li>{{friend}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>number of posts</td>
+                            <td>{{profile.get_posts_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>number of likes given</td>
+                            <td>{{profile.get_likes_given_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>number of likes received</td>
+                            <td>{{profile.get_likes_recieved_no}}</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+    {% endblock content %}

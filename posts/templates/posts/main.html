@@ -1,0 +1,476 @@
+{% extends 'base.html' %}
+{% load static %}
+{% url 'profiles:my-profile-view' as path_to_my_profile %}
+
+{% block title %}main page{% endblock title %}
+
+{% block content %}
+<div class="">
+
+    <div class="body-align">
+        <div class="row">
+            <!-- Profile Card -->
+            <div class="left-body col-lg-3">
+                <div class="col-lg-12 text-center">
+                    <div class="profile-card">
+                        <div class="banner">
+                            <img src="{{profile.avatar.url}}">
+                        </div>
+
+                        <div class="menu">
+                            <!--<div class="opener"><span></span><span></span><span></span></div>-->
+                            <!-- Ready for use as menu or whatever  -->
+                        </div>
+                        <div class="object-title">Hi, {{profile.first_name}}</div>
+                        <div class="title">{{profile.bio}}</div>
+                        <div class="actions">
+                            <div class="follow-info col-lg-12">
+                                <h2 class="col-lg-6"><a
+                                        href="#"><span>{{profile.get_friends_no}}</span><small>Friends</small></a>
+                                </h2>
+                                <h2 class="col-lg-6"><a
+                                        href="#"><span>{{profile.get_posts_no}}</span><small>Posts</small></a>
+                                </h2>
+                            </div>
+                            <a href="{% url 'profiles:my-profile-view' %}" class="col-lg-12 btn btn-primary">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="middle-body col-lg-6">
+                <div class="post-mobile-width container d-flex justify-content-center">
+                    <div id="noxep" class="col-lg-12 col-sm-12 object object-left scene scene--noxep">
+
+                        <!-- Stories -->
+                        <div class="container story-container">
+                            <div class="story-container">
+                                <ul>
+
+                                    <li class="has-story">
+                                        <div class="story" style="background: black;">
+                                            <img src="{% static 'SVG/stories.svg' %}">
+                                        </div>
+                                        <span class="user">Add</span>
+                                    </li>
+
+                                    <li class="has-story">
+                                        <div class="story">
+                                            <img src="{{profile.avatar.url}}">
+                                        </div>
+                                        <span class="user">Emir</span>
+                                    </li>
+
+                                    <li class="has-story">
+                                        <div class="story">
+                                            <img src="{{profile.avatar.url}}">
+                                        </div>
+                                        <span class="user">Emir</span>
+                                    </li>
+
+                                    <li class="has-story">
+                                        <div class="story">
+                                            <img src="{{profile.avatar.url}}">
+                                        </div>
+                                        <span class="user">Emir</span>
+                                    </li>
+
+                                    <li class="has-story">
+                                        <div class="story">
+                                            <img src="{{profile.avatar.url}}">
+                                        </div>
+                                        <span class="user">Emir</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Posts -->
+                        {% for obj in qs %}
+
+                        <div class="ui fluid card">
+                            <div class="primero-header container">
+                                <div class="primero-author--no-cover col-lg-5">
+                                    <img class="ui avatar image" src={{obj.author.avatar.url}}>
+                                    <p>{{ obj.author.user }}</p>
+                                    <!--- {{ obj.created|timesince}} ago -->
+                                </div>
+
+                                <!-- Edit/Delete Buttons -->
+                                <form action="{% url 'posts:like-post-view' %}" method="POST" class="ml-auto like-form"
+                                    id='{{obj.id}}'>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="post_id" value={{obj.id}}>
+                                    <button class="btn like-btn{{obj.id}}" type="submit" style="height: 100%;">
+                                        {% if profile not in obj.liked.all %}
+                                        Like
+                                        {% else %}
+                                        Unlike
+                                        {% endif %}
+                                        <!--
+                                        <a>
+                                            <img class="post-img like" src="{% static 'SVG/like.svg' %}" />
+                                        </a>
+                                    -->
+                                    </button>
+                                </form>
+
+                                <button class="toggle btn">
+                                    <a>
+                                        <img class=" post-img like" src="{% static 'SVG/comm.svg' %}" />
+                                    </a>
+                                </button>
+                                {% ifequal request.user obj.author.user %}
+
+                                <div class="btn-group ">
+
+                                    <button class="btn" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                            <path
+                                                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
+                                            </path>
+                                        </svg>
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <div class="primero-buttons ml-auto">
+
+                                            <a href="{% url 'posts:post-update' obj.pk %}">
+                                                <button class="btn btn-primary ">Update</button>
+                                            </a>
+                                            <a href="{% url 'posts:post-delete' obj.pk %}"><button
+                                                    class="btn btn-primary ">Delete</button></a>
+
+                                        </div>
+                                    </ul>
+                                </div>
+                                {% endifequal %}
+                                <!-- Edit/Delete /Buttons -->
+
+                            </div>
+                            <!-- POST Picture-->
+                            <div class="ui fluid image">
+                                {% if obj.image %}
+                                <img src={{obj.image.url}}>
+                                {% endif %}
+                            </div>
+                            <!-- POST Content -->
+                            <div class="content">
+                                <p> {{ obj.content }} </p>
+                                <div class="right floated">
+                                    <!-- Orig.Like
+                                    <form action="{% url 'posts:like-post-view' %}" method="POST" class='like-form'
+                                        id='{{obj.id}}'>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="post_id" value={{obj.id}}>
+
+                                        
+                                        <button type="submit" class="ui btn btn-primary like-btn{{obj.id}}">
+                                                {% if profile not in obj.liked.all %}
+                                                Like
+                                                {% else %}
+                                                Unlike
+                                                {% endif %}
+                                        </button> 
+
+
+                                        
+                                    </form>-->
+
+                                </div>
+                                <div class="flex">
+                                    <i class="far fa-comment"></i>
+                                    <i class="comment icon"></i>
+                                    <span> {{ obj.num_comments }} comments</span>
+                                </div>
+                                <div class="flex">
+                                    <div class="like-count{{obj.id}}"> {{obj.num_likes}}</div>
+                                    <div class="ml-1">Likes</div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="target comment-box">
+                                    {% if obj.comment_set.all %}
+                                    {% for c in obj.comment_set.all %}
+
+                                    <div class="ui segment mb-2">
+                                        <img class="ui avatar image" src={{c.user.avatar.url}}>
+                                        <span>{{ c.user }}</span>
+                                        <div class='mt-2'>{{ c.body }}</div>
+                                    </div>
+
+                                    {% endfor %}
+                                    {% endif %}
+                                    <form action="" method="POST" class='ui fluid form'>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="post_id" value={{obj.id}}>
+                                        {{ c_form }}
+                                        <button type="submit" name="submit_c_form"
+                                            class="ui primary button mt-2 w-full">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-body col-lg-3">
+                <div class="col-lg-12">
+                    <div class="object object-left">
+                        <div class="object-body">
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label for="id_content" style="text-align: unset!important;">
+                                    Content:
+                                </label>
+                                <textarea name="content" cols="40" rows="2" maxlength="120" id="id_content"
+                                    placeholder="How was your day?"></textarea>
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <label for="id_image">Image:</label>
+                                    <span class="fileupload-preview"></span>
+                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload"
+                                        style="float: none">×</a>
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="button mt-2 d-flex flex-row align-items-center">
+                                            <span class="btn btn-sm btn-file btn-outline-primary w-100">
+                                                <span class="fileupload-new">Select file</span>
+                                                <span class="fileupload-exists">Change</span>
+                                                <input type="file" name="image" accept="image/*" id="id_image">
+                                            </span>
+                                            <button type="submit" name="submit_p_form" class="btn btn-sm btn-primary w-100 ml-2">
+                                                Send
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--OLD
+    <div class="ui grid">
+        <div class="eleven wide column">
+            {% for obj in qs %}
+
+            <div class="ui fluid card">
+                <div class="content">
+                    <div class="right floated meta">
+                        <div class="ui grid">
+                            <div class="row">
+                                {% ifequal request.user obj.author.user %}
+                                <a href="{% url 'posts:post-update' obj.pk %}"><button
+                                        class="ui button bwhite-lg ">Update</button></a>
+                                <a href="{% url 'posts:post-delete' obj.pk %}"><button
+                                        class="ui button bwhite-lg ">Delete</button></a>
+                                {% endifequal %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <img class="ui avatar image" src={{obj.author.avatar.url}}>
+                    {{ obj.author.user }} - {{ obj.created|timesince}} ago
+                </div>
+                <div class="ui fluid image">
+                    {% if obj.image %}
+                    <img src={{obj.image.url}}>
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <p> {{ obj.content }} </p>
+                    <div class="right floated">
+                        <form action="{% url 'posts:like-post-view' %}" method="POST" class='like-form' id='{{obj.id}}'>
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id" value={{obj.id}}>
+
+                            <button type="submit" class="ui button like-btn{{obj.id}}">
+                                {% if profile not in obj.liked.all %}
+                                Like
+                                {% else %}
+                                Unlike
+                                {% endif %}
+                            </button>
+                            <div class="ui grid">
+                                <div class="column">
+                                    <div class="like-count{{obj.id}}"> {{obj.num_likes}} </div>
+                                </div>
+                                <div class="column">
+                                    likes
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <i class="comment icon"></i>
+                    <span> {{ obj.num_comments }} comments</span>
+                </div>
+                <div class="extra content">
+                    <div class="mb-5">
+
+                    </div>
+                    <button class="cmt_btn ui button mb-5">show / hide comments</button>
+                    <div class="comment-box">
+                        {% if obj.comment_set.all %}
+                        {% for c in obj.comment_set.all %}
+
+                        <div class="ui segment mb-5">
+                            <img class="ui avatar image" src={{c.user.avatar.url}}>
+                            <span>{{ c.user }}</span>
+                            <div class='mt-5'>{{ c.body }}</div>
+                        </div>
+
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <form action="" method="POST" class='ui fluid form'>
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value={{obj.id}}>
+                        {{ c_form }}
+                        <button type="submit" name="submit_c_form" class="ui primary button mt-5 w-full">Send</button>
+                    </form>
+                </div>
+            </div>
+
+
+            {% endfor %}
+        </div>
+
+        <div class="right-body col-lg-3" style="margin-bottom: 20px;">
+            <div class="col-lg-12">
+                <div class="object object-left">
+                    <div class="object-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label for="id_content" style="text-align: unset!important;">
+                                Content:
+                            </label>
+                            <textarea name="content" cols="40" rows="2" maxlength="120" id="id_content"
+                                placeholder="How was your day?"></textarea>
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <label for="id_image">Image:</label>
+                                <span class="fileupload-preview"></span>
+                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload"
+                                    style="float: none">×</a>
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="row col-sm-12 post-buttons" style="margin:0 !important;">
+                                        <span class="btn btn-primary btn-file col-sm-6 col-lg-6"
+                                            style="cursor: pointer;">
+                                            <span class="fileupload-new">Select file</span>
+                                            <span class="fileupload-exists">Change</span>
+                                            <input type="file" name="image" accept="image/*" id="id_image">
+                                        </span>
+                                        <button type="submit" name="submit_p_form"
+                                            class="btn btn-primary col-sm-6 col-lg-6">
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <div class="five wide column">
+        <div class="ui segment">
+            {% if post_added %}
+                <div class="ui green message">Post added</div>
+            {% endif %}
+            <form action="" method="POST" class='ui form' enctype="multipart/form-data">
+                {% csrf_token %}
+                {{p_form}}
+                <button type='submit' name="submit_p_form" class="ui positive button w-full mt-5">Send</button>
+            </form>
+        </div>
+    </div>
+
+    </div>-->
+    {% endblock content %}
+
+    {% block scripts %}
+
+
+    <script>
+        $('.toggle').click(function () {
+            $('.target').toggle('slow');
+        });
+
+        $('.add-post').click(function () {
+            $('.right-body').toggle('slow');
+        });
+        /*
+        $( "#show" ).click(function() {
+            $( "#link" ).toggle();
+        });*/
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            let display = false
+            $(".cmt_btn").click(function () {
+                if (display === false) {
+                    $(this).next(".comment-box").show("slow");
+                    display = true
+                } else {
+                    $(this).next(".comment-box").hide("slow");
+                    display = false
+                }
+            });
+
+            $('.like-form').submit(function (e) {
+                e.preventDefault()
+
+                const post_id = $(this).attr('id')
+
+                const likeText = $(`.like-btn${post_id}`).text()
+                const trim = $.trim(likeText)
+
+                const url = $(this).attr('action')
+
+                let res;
+                const likes = $(`.like-count${post_id}`).text()
+                const trimCount = parseInt(likes)
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id': post_id,
+                    },
+                    //$(`.like-btn${post_id}`).attr("src", "{% static 'SVG/like.svg' %} ");
+                    success: function (response) {
+                        if (trim === 'Unlike') {
+                            $(`.like-btn${post_id}`).text('Like')
+                            res = trimCount - 1
+                        } else {
+                            $(`.like-btn${post_id}`).text('Unlike')
+                            res = trimCount + 1
+                        }
+
+                        $(`.like-count${post_id}`).text(res)
+                    },
+                    error: function (response) {
+                        console.log('error', response)
+                    }
+                })
+
+            })
+        });
+    </script>
+    {% endblock scripts %}

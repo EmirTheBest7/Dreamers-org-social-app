@@ -1,0 +1,293 @@
+body {
+    background: #e5ded8;
+    box-sizing: border-box;
+}
+
+.primero-container {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 4px 2px -2px;
+    font-family: "adelle-sans", sans-serif;
+    font-weight: 100;
+    margin: 48px auto;
+    width: 20rem;
+}
+
+@media screen and (min-width: 480px) {
+    .primero-container {
+        width: 28rem;
+    }
+}
+
+@media screen and (min-width: 767px) {
+    .primero-container {
+        width: 40rem;
+    }
+}
+
+@media screen and (min-width: 959px) {
+    .primero-container {
+        width: 50rem;
+    }
+}
+
+.primero-container a {
+    color: #4d4dff;
+    text-decoration: none;
+    -webkit-transition: .25s ease;
+    transition: .25s ease;
+}
+
+.primero-container a:hover {
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+}
+
+.primero-cover {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/17779/yosemite-3.jpg");
+    background-size: cover;
+    border-radius: 5px 5px 0 0;
+    height: 15rem;
+    box-shadow: inset rgba(0, 0, 0, 0.2) 0 64px 64px 16px;
+}
+
+.primero-author,
+.primero-author--no-cover {
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+    /*margin: 0 auto;
+    width: 90%;*/
+}
+
+.primero-author h3::before,
+.primero-author--no-cover img::before {
+    background-size: cover;
+    border-radius: 50%;
+    content: " ";
+    display: inline-block;
+    height: 32px;
+    margin-right: .5rem;
+    position: relative;
+    top: 8px;
+    width: 32px;
+}
+
+.primero-author h3 {
+    color: #fff;
+    font-weight: 100;
+}
+
+.primero-author--no-cover h3 {
+    color: #999999;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.primero-body {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.primero-buttons {
+    padding: 0px 6px 0px 6px;
+}
+
+.dropdown-menu {
+    position: absolute !important;
+    transform: translate3d(0px, 62px, 0px) !important;
+    top: -63px !important;
+    left: -160px !important;
+    will-change: transform !important;
+}
+
+.primero-buttons button {
+    margin: 2px;
+}
+
+.scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 400px;
+}
+
+.img-body {
+    height: 100%;
+    width: 100%;
+}
+
+.primero-title p a {
+    color: #333;
+    font-weight: 100;
+}
+
+.primero-summary p {
+    color: #4d4d4d;
+    padding: 0px 0 20px 0;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.primero-author--no-cover img {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 500rem;
+    margin-right: 10px;
+}
+
+.primero-header {
+    display: flex;
+}
+
+.primero-header div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.primero-tags ul {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-left: 0;
+}
+
+.primero-tags li+li {
+    margin-left: .5rem;
+}
+
+.primero-tags a {
+    border: 1px solid #999999;
+    border-radius: 3px;
+    color: #999999;
+    font-size: .75rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    letter-spacing: 1px;
+    padding: 0 .5rem;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 5rem;
+}
+
+.primero-footer {
+    border-top: 1px solid #e6e6e6;
+    margin: 0 auto;
+    padding: 10px 0 10px 0;
+    width: 90%;
+}
+
+.primero-footer ul {
+    list-style: none;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-flex: row;
+    flex: row wrap;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    padding-left: 0;
+}
+
+/*
+.primero-footer li:first-child {
+    margin-right: auto;
+}
+
+.primero-footer li+li {
+    margin-left: .5rem;
+}
+*/
+
+.soc-btn {
+    display: flex;
+    -webkit-box-flex: row;
+    flex: row wrap;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    padding-left: 0;
+    height: 30px;
+}
+
+.primero-footer li {
+    color: #999999;
+    font-size: .75rem;
+    height: 1.5rem;
+    letter-spacing: 1px;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+    position: relative;
+    white-space: nowrap;
+}
+
+.primero-footer li a {
+    color: #999999;
+}
+
+.comments {
+    margin-right: 1rem;
+}
+
+.published-date {
+    border: 1px solid #999999;
+    border-radius: 3px;
+    padding: 0 .5rem;
+}
+
+.numero {
+    position: relative;
+    margin-left: 5px;
+}
+
+.post-img {
+    width: 30px;
+    height: auto;
+}
+
+.soc-btn li {
+    margin-right: 30px;
+}
+
+
+/* NEW! flip the pane when hovered */
+.scene {
+    perspective: 600px;
+}
+
+#noxep {
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+}
+
+
+#noxep .front {
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+#noxep .back {
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    width: 100%;
+    height: 100%;
+}
+
+#noxep.flipped {
+    transform: rotateY(180deg);
+}
+
+.likeros {
+    height: 100%;
+}
+
+.target {
+    display: none;
+}
